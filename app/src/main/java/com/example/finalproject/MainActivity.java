@@ -2,9 +2,11 @@ package com.example.finalproject;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         removeDeadLineCheckOut();
         populateReservedRooms();
 
+
+
     }
     @Override
     protected void onSaveInstanceState(Bundle outState){
@@ -103,10 +107,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkIn.setText(savedInstanceState.getString("DateCheckIn"));
         checkOut.setText(savedInstanceState.getString("DateCheckOut"));
     }
-
-
     public void populateAllData(){
+
+
         StringRequest request = new StringRequest(Request.Method.GET, BASE_URL,
+
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -128,9 +133,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String dateCheckIn=checkIn.getText().toString();
                             String dateCheckOut=checkOut.getText().toString();
                             recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                            CaptionedImageAdapter adapter = new CaptionedImageAdapter(MainActivity.this,rooms,dateCheckIn,dateCheckOut);
+                            com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this,rooms,dateCheckIn,dateCheckOut);
 
                             recycler.setAdapter(adapter);
+
+
+
                             //Filter according to check & check out
                             ImageButton checkInButton= findViewById(R.id.checkInIc);
                             ImageButton checkOutButton= findViewById(R.id.checkOutIc);
@@ -154,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         queue.add(request);
     }
-
     public void removeDeadLineCheckOut(){
         String url="http://10.0.2.2:80/RoomDataBase/deleteReservedRoom.php";
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -299,7 +306,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String checkTry=checkIn.getText().toString();
         String checkInTxt=(checkIn.getText().toString()).replace("/","-");
         String checkOutTxt=(checkOut.getText().toString()).replace("/","-");
-
         String roomTypeTxt=spinRoomType.getSelectedItem().toString();
         ArrayList<Room>roomsFiltered=new ArrayList<>();
 
@@ -314,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (inUserDate.compareTo(outUserDate) < 0) {
                     for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
-                          /*  ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
+                            ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
                             Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
 
@@ -324,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
                                 }
-                            }*/
+                            }
 
                         } else {
                             if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt))
@@ -333,30 +339,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    CaptionedImageAdapter adapter = new CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
+                    com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
 
                     recycler.setAdapter(adapter);
                 } else {
+
                     Toast.makeText(MainActivity.this, "Invalid Date", Toast.LENGTH_SHORT).show();
                 }
             } else if (roomTypeTxt.equalsIgnoreCase("select type")) {
                 if (inUserDate.compareTo(outUserDate) < 0) {
                     for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
-                       /*     ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
+                            ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
                             Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
 
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
                                 roomsFiltered.add(rooms.get(i));
-                            }*/
+
+                            }
+
                         } else {
                             roomsFiltered.add(rooms.get(i));
                         }
                     }
 
                     recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    CaptionedImageAdapter adapter = new CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
+                    com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
+
                     recycler.setAdapter(adapter);
                 } else {
 
@@ -366,12 +376,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         }
+
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
+
             case R.id.nav_home:
                 intent=new Intent(MainActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -384,6 +397,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent=new Intent(MainActivity.this, TripList.class);
                 startActivity(intent);
                 break;
+
             case R.id.nav_person:
                 intent=new Intent(MainActivity.this, Profile.class);
                 startActivity(intent);
@@ -396,10 +410,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent=new Intent(MainActivity.this, LogOut.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_parties:
-                intent=new Intent(MainActivity.this, PlacesEmployeeView.class);
-                startActivity(intent);
-                break;
+
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
