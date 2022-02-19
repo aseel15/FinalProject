@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -350,7 +349,6 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
 
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
                                 roomsFiltered.add(rooms.get(i));
-
                             }
 
                         } else {
@@ -371,7 +369,6 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
             }
         }
 
-
     }
 
     @Override
@@ -388,6 +385,10 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                 intent=new Intent(EmployeeResRoom.this, AddRoom.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_addPlace_a:
+                intent=new Intent(EmployeeResRoom.this, addPlace.class);
+                startActivity(intent);
+                break;
             case R.id.nav_services_a:
                 intent=new Intent(EmployeeResRoom.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
@@ -396,7 +397,10 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                 intent=new Intent(EmployeeResRoom.this, ControlTripAdmin.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_parties_a:
+                intent=new Intent(EmployeeResRoom.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
             case R.id.nav_persons_a:
                 intent=new Intent(EmployeeResRoom.this, AllUser.class);
                 startActivity(intent);
@@ -411,8 +415,6 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                 intent=new Intent(EmployeeResRoom.this, LogOut.class);
                 startActivity(intent);
                 break;
-
-
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

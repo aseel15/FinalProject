@@ -19,7 +19,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.finalproject.model.Room;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       preferences=getSharedPreferences("session",MODE_PRIVATE);
+        preferences=getSharedPreferences("session",MODE_PRIVATE);
         userId=preferences.getInt("login",-1);
 
         setContentView(R.layout.activity_detail);
@@ -145,15 +144,15 @@ public class DetailActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+                    @Override
+                    public void onResponse(String response) {
 
-                Toast.makeText(DetailActivity.this,
-                        response, Toast.LENGTH_LONG).show();
-                //textTry.setText(response);
+                        Toast.makeText(DetailActivity.this,
+                                response, Toast.LENGTH_LONG).show();
+                        //textTry.setText(response);
 
-            }
-        }, new Response.ErrorListener() {
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 textTry.setText(error.getMessage());

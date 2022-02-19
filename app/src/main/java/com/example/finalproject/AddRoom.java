@@ -1,9 +1,7 @@
 package com.example.finalproject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -37,6 +35,7 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
     Toolbar toolbar;
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,7 +197,15 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
                 intent=new Intent(AddRoom.this, LogOut.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_parties_a:
+                intent=new Intent(AddRoom.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
 
+            case R.id.nav_addPlace_a:
+                intent=new Intent(AddRoom.this, addPlace.class);
+                startActivity(intent);
+                break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

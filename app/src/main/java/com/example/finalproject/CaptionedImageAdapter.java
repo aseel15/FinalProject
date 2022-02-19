@@ -1,6 +1,5 @@
 package com.example.finalproject;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.finalproject.model.Room;
-
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,6 +33,7 @@ public class CaptionedImageAdapter extends RecyclerView.Adapter<CaptionedImageAd
         this.dateCheckIn=dateCheckIn;
         this.dateCheckOut=dateCheckOut;
     }
+
     public interface OnItemClickListener{
         void onItemClick(int position);
     }
@@ -84,9 +83,6 @@ public class CaptionedImageAdapter extends RecyclerView.Adapter<CaptionedImageAd
         });
 
     }
-
-
-
 
     @Override
     public int getItemCount() {
